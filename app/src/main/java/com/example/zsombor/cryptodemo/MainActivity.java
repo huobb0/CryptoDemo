@@ -17,9 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText cipher;
     private Button button;
 
-    public static String encrypt(String key, String initVector, String value) {
+    public static String encrypt(String key, String value) {
         try {
-            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
@@ -43,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View arg0){
                 String key = "Bar12345Bar12345"; // 128 bit key
-                String initVector = "RandomInitVector"; // 16 bytes IV
-                cipher.setText(encrypt(key,initVector,plain.getText().toString()));
+                cipher.setText(encrypt(key,plain.getText().toString()));
             }
         });
     }
